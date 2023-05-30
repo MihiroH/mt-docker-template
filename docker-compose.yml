@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - '${WEB_PORT:-8080}:80'
+    restart: always
+    volumes:
+      - '${DEST_DIR:-./htdocs}:/var/www/html'
+      - ./mt-data/htdocs/.htaccess:/var/www/html/.htaccess
+      - ./mt-data/htdocs/mt:/var/www/html/mt
+      - ./mt-data/htdocs/mt-static:/var/www/html/mt-static
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+volumes:
+  db_data:
