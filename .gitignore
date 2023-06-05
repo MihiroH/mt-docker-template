@@ -4,6 +4,7 @@
 
 /mt-data/cgi-bin/mt/*
 !/mt-data/cgi-bin/mt/.gitkeep
+!/mt-data/cgi-bin/mt/mt-config.cgi
 
 /mt-data/htdocs/mt-static
 /mt-data/htdocs/mt/*
